@@ -1,0 +1,58 @@
+# Stealth MCQ Helper - Configuration
+# Copy to config.yaml and customize as needed
+# All values shown are defaults (matching app.py behavior)
+
+groq:
+  vision_model: "qwen/qwen3.8-27b"
+  text_model: "openai/gpt-oss-120b"
+  vision_timeout: 60
+  text_timeout: 30
+
+
+hotkeys:
+  screenshot: "<ctrl>+<alt>+w"     # Capture screenshot & solve MCQ
+  explain: "<ctrl>+<alt>+e"        # Explain selected text
+  hide: "delete"                   # Hide overlay (single key)
+
+overlay:
+  width: 320                       # Overlay width in pixels
+  height: 90                       # Overlay height in pixels
+  opacity: 0.88                    # Window opacity (0.0 - 1.0)
+  position: "bottom-right"         # bottom-right, bottom-left, top-right, top-left
+  margin: 20                       # Margin from screen edge in pixels
+
+clipboard:
+  poll_timeout: 1.5                # Max seconds to wait for clipboard change
+  poll_interval: 0.05              # Polling interval in seconds
+
+# Image processing
+image:
+  max_dimension: 1024              # Thumbnail max width/height
+  jpeg_quality: 85                 # JPEG compression quality (1-100)
+
+# Prompts sent to Groq (use {text} placeholder for text prompt)
+prompts:
+  vision: |
+    Analyze this MCQ screenshot. Reply strictly in Roman Urdu (technical terms can remain in English). Provide ultra-concise breakdown:
+    1. **Flaw:** Exact error/missing step.
+    2. **Rule:** Key guideline.
+    3. **Hint:** Decisive keyword/concept for the right option.
+    Keep it brief and direct.
+
+  text: |
+    Analyze text: {text}
+    Reply strictly in Roman Urdu (technical terms can remain in English). Provide ultra-concise breakdown:
+    1. **Flaw:** Exact error/missing step.
+    2. **Rule:** Key guideline.
+    3. **Hint:** Decisive keyword/concept.
+    Keep it brief.
+
+    Text: {text}
+
+# Logging
+logging:
+  level: "INFO"                    # DEBUG, INFO, WARNING, ERROR
+  console: true                    # Log to console
+  file: false                      # Log to file (logs/app.log)
+  max_bytes: 1048576               # 1 MB per log file
+  backup_count: 3                  # Keep 3 rotated files
